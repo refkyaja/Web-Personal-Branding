@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio TKJ | Personal Branding</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode support
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#e0f2fe',
+                            DEFAULT: '#0ea5e9',
+                            dark: '#0369a1',
+                            accent: '#22d3ee'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px 0 rgba(14, 165, 233, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(14, 165, 233, 0.2);
+        }
+        .dark .glass-card:hover {
+            box-shadow: 0 12px 40px 0 rgba(14, 165, 233, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0ea5e9;
+            border-radius: 4px;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #0ea5e9, #22d3ee);
+        }
+
+        /* Canvas Background */
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* Floating Animation */
+        .float-anim {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Timeline Styles */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 16px;
+            height: 100%;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        .dark .timeline-container::before {
+            background: #334155;
+        }
+        @media (min-width: 768px) {
+            .timeline-container::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Timeline Dot & Content Animation */
+        .timeline-dot {
+            background-color: #ffffff;
+            border-color: #cbd5e1;
+            transform: translateX(-50%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .timeline-dot {
+            background-color: #0f172a;
+            border-color: #475569;
+        }
+        
+        .timeline-item.glow-active .timeline-dot {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 20px 5px rgba(14, 165, 233, 0.4);
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        .timeline-content {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+        .timeline-item.glow-active .timeline-content {
+            transform: scale(1.02) translateY(-3px);
+        }
+        @media (min-width: 768px) {
+            .timeline-item.glow-active .timeline-content {
+                transform: scale(1.04) translateY(-5px);
+            }
+        }
+
+        /* Typing Cursor Animation */
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            background-color: #0ea5e9;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+            height: 1em;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Mouse Scroll Animation */
+        @keyframes scrollWheel {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(14px); opacity: 0; }
+        }
+        .animate-scroll-wheel {
+            animation: scrollWheel 1.5s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
+        }
+
+        /* Music Player Cover Spin Animation */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-active {
+            animation: spinSlow 5s linear infinite;
+        }
+
+        /* Custom Scrollbar for Playlist */
+        #playlist-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        #playlist-list::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        #playlist-list::-webkit-scrollbar-thumb {
+            background: #0ea5e9;
+            border-radius: 4px;
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translate(0) scale(1);
+        }
+        .reveal-up { transform: translateY(50px); }
+        .reveal-left { transform: translateX(50px); }
+        .reveal-right { transform: translateX(-50px); }
+        .reveal-scale { transform: scale(0.9); }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Skill Progress Animation */
+        .skill-bar-fill {
+            width: 0%;
+            transition: width 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s;
+        }
+        .reveal.active .skill-bar-fill {
+            width: var(--target-width);
+        }
+
+        /* Back to top button visibility transition */
+        #back-to-top {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        #back-to-top.hide {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 dark:text-slate-200 bg-f8fafc dark:bg-slate-900 antialiased overflow-x-hidden transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center h-20">
+                <!-- Logo - Left -->
+                <div class="flex-1 flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                        <span class="font-bold text-xl tracking-tight text-slate-800 dark:text-white">M.<span class="text-brand">Faizal</span></span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu - Center -->
+                <div class="hidden md:flex flex-none items-center justify-center space-x-8">
+                    <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand font-medium transition-colors">About</a>
+                    <a href="#skills" class="text-slate-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand font-medium transition-colors">Skills</a>
+                    <a href="#projects" class="text-slate-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand font-medium transition-colors">Projects</a>
+                    <a href="#gallery" class="text-slate-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand font-medium transition-colors">Gallery</a>
+                    <a href="#pendidikan" class="text-slate-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand font-medium transition-colors">Pendidikan</a>
+                </div>
+
+                <!-- Right Actions - Right -->
+                <div class="flex-1 hidden md:flex items-center justify-end gap-4">
+                    <!-- Dark Mode Toggle Desktop -->
+                    <button id="theme-toggle-desktop" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand dark:hover:text-brand-accent flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                    
+                    <a href="#contact" class="bg-brand hover:bg-brand-dark text-white px-6 py-2 rounded-full font-medium transition-all shadow-lg shadow-brand/30">
+                        Hubungi Saya
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button & Theme Toggle -->
+                <div class="md:hidden flex items-center gap-3">
+                    <!-- Dark Mode Toggle Mobile -->
+                    <button id="theme-toggle-mobile" class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-brand focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 absolute w-full shadow-lg">
+            <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col">
+                <a href="#about" class="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-brand-light dark:hover:bg-slate-800 hover:text-brand rounded-md font-medium">About</a>
+                <a href="#skills" class="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-brand-light dark:hover:bg-slate-800 hover:text-brand rounded-md font-medium">Skills</a>
+                <a href="#projects" class="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-brand-light dark:hover:bg-slate-800 hover:text-brand rounded-md font-medium">Projects</a>
+                <a href="#gallery" class="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-brand-light dark:hover:bg-slate-800 hover:text-brand rounded-md font-medium">Gallery</a>
+                <a href="#pendidikan" class="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-brand-light dark:hover:bg-slate-800 hover:text-brand rounded-md font-medium">Pendidikan</a>
+                <a href="#contact" class="block px-3 py-2 text-brand font-bold dark:hover:bg-slate-800 rounded-md">Hubungi Saya</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Landing Page (Hero Section) -->
+    <section id="home" class="relative min-h-screen flex flex-col overflow-hidden bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 transition-colors duration-300">
+        <!-- Interactive Network Canvas -->
+        <canvas id="network-canvas"></canvas>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col items-center justify-center text-center gap-8 pt-28 pb-10 w-full">
+            <div>
+                <div class="inline-block px-4 py-2 rounded-full bg-brand-light dark:bg-brand-dark/20 text-brand dark:text-brand-accent font-semibold text-sm mb-6 border border-brand/20">
+                    <i class="fa-solid fa-wifi mr-2"></i>Teknik Komputer dan Jaringan
+                </div>
+                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4 min-h-[120px] md:min-h-[144px] text-slate-900 dark:text-white">
+                    Hii, i'm <br>
+                    <span class="text-gradient typing-text"></span><span class="cursor"></span>
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto px-4 md:px-0">
+                    I'm a Network Engineer in Progress, Tkj, Enjoy my portofolio
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center px-4">
+                    <a href="#projects" class="bg-brand hover:bg-brand-dark text-white px-8 py-3 rounded-full font-semibold transition-all shadow-lg shadow-brand/30 text-center">
+                        Lihat Proyek
+                    </a>
+                    <a href="#contact" class="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-white border-2 border-slate-200 dark:border-slate-700 px-8 py-3 rounded-full font-semibold transition-all text-center">
+                        Konsultasi Jaringan
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="relative z-10 pb-8 flex flex-col items-center w-full shrink-0">
+            <a href="#about" class="flex flex-col items-center text-slate-400 dark:text-slate-500 hover:text-brand dark:hover:text-brand-accent transition-all duration-300 opacity-80 hover:opacity-100 group">
+                <span class="text-[10px] font-semibold uppercase tracking-[0.2em] mb-2 group-hover:translate-y-1 transition-transform">Scroll Down</span>
+                <div class="w-7 h-11 border-2 border-current rounded-full flex justify-center pt-2">
+                    <div class="w-1.5 h-2.5 bg-current rounded-full animate-scroll-wheel"></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 2. About Me -->
+    <section id="about" class="py-24 bg-white dark:bg-slate-900 relative overflow-hidden transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">Tentang <span class="text-brand">Saya</span></h2>
+                <div class="w-20 h-1.5 bg-brand mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-5/12 relative flex justify-center reveal reveal-right">
+                    <!-- Kartu Profil Neon Style -->
+                    <div class="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[3/4] group mt-4 md:mt-0">
+                        <!-- Glow border effect (Neon Cyan & Purple) -->
+                        <div class="absolute -inset-0.5 bg-gradient-to-b from-cyan-400 via-brand to-purple-600 rounded-[2.2rem] blur-md opacity-75 group-hover:opacity-100 transition duration-500"></div>
+                        
+                        <!-- Main Card Background -->
+                        <div class="relative h-full w-full bg-[#0a0f1a] rounded-[2rem] p-6 flex flex-col items-center overflow-hidden border border-slate-800/50 shadow-2xl">
+                            
+                            <!-- Top Text -->
+                            <div class="text-center relative z-20 mt-2">
+                                <h3 class="text-xl sm:text-2xl font-bold text-white tracking-wide">M.Faizal Ramdhani</h3>
+                                <p class="text-[11px] sm:text-[13px] text-cyan-400 mt-1 font-medium">Siswa TKJ / Network Engineer</p>
+                            </div>
+
+                            <!-- Main Portrait -->
+                            <img src="gallery/profile.png" alt="M.Faizal" class="absolute bottom-16 w-[90%] object-cover z-10 transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100">
+                            
+                            <!-- Gradient overlay -->
+                            <div class="absolute bottom-0 left-0 w-full h-[55%] bg-gradient-to-t from-[#0a0f1a] via-[#0a0f1a]/80 to-transparent z-10"></div>
+
+                            <!-- Bottom Floating Action Bar -->
+                            <div class="absolute bottom-4 sm:bottom-5 left-3 right-3 sm:left-4 sm:right-4 z-20 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-2 sm:p-3 flex items-center justify-between shadow-lg">
+                                <div class="flex items-center gap-2 sm:gap-3">
+                                    <img src="gallery/avatar.png" alt="Avatar" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-slate-700 object-cover">
+                                    <div>
+                                        <p class="text-white text-[9px] sm:text-[11px] font-semibold tracking-wider truncate max-w-[80px] sm:max-w-[100px]">@mfaizal_tkj</p>
+                                        <div class="flex items-center gap-1.5 mt-0.5">
+                                            <span class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_5px_#22c55e]"></span>
+                                            <span class="text-slate-300 text-[8px] sm:text-[10px]">Online</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#contact" class="bg-white/10 hover:bg-white/20 text-white text-[9px] sm:text-[11px] font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl transition-all border border-white/10 hover:scale-105 whitespace-nowrap">
+                                    Contact Me
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-7/12 mt-10 md:mt-0 text-center md:text-left reveal reveal-left delay-200">
+                    <h3 class="text-2xl font-semibold mb-4 text-slate-800 dark:text-white">Siswa IT yang Antusias dengan Infrastruktur Jaringan</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed text-sm md:text-base">
+                        Halo! Saya adalah siswa jurusan Teknik Komputer dan Jaringan yang memiliki semangat tinggi dalam mempelajari dunia teknologi, khususnya arsitektur jaringan. Saat ini saya berfokus pada pemahaman topologi dasar, praktik routing, dan perakitan serta troubleshooting PC.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-8 leading-relaxed text-sm md:text-base">
+                        Di sekolah, saya aktif mengikuti praktik laboratorium dan terus mengasah keterampilan teknis. Tujuan saya adalah menjadi Network Engineer yang handal, dan saya siap belajar dari setiap proyek maupun tugas yang diberikan.
+                    </p>
+                    
+                    <a href="#contact" class="inline-flex items-center text-brand dark:text-brand-accent font-semibold hover:text-brand-dark dark:hover:text-white transition-colors">
+                        Hubungi Saya <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Skills -->
+    <section id="skills" class="py-24 bg-slate-50 dark:bg-slate-800/50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">Keahlian <span class="text-brand">Teknis</span></h2>
+                <div class="w-20 h-1.5 bg-brand mx-auto rounded-full"></div>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 text-sm md:text-base">Teknologi dan perangkat yang sedang saya pelajari dan kuasai</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Skill Category 1 -->
+                <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300 reveal reveal-up delay-100">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-brand-light dark:bg-brand-dark/30 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-network-wired text-xl md:text-2xl text-brand dark:text-brand-accent"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-6 text-slate-800 dark:text-white">Networking & Routing</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Dasar MikroTik</span>
+                                <span class="text-sm font-medium text-brand dark:text-brand-accent">80%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-brand h-2 rounded-full skill-bar-fill" style="--target-width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Cisco Packet Tracer</span>
+                                <span class="text-sm font-medium text-brand dark:text-brand-accent">75%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-brand h-2 rounded-full skill-bar-fill" style="--target-width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">VLAN & Subnetting</span>
+                                <span class="text-sm font-medium text-brand dark:text-brand-accent">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-brand h-2 rounded-full skill-bar-fill" style="--target-width: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category 2 -->
+                <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300 reveal reveal-up delay-200">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-blue-100 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-server text-xl md:text-2xl text-blue-500 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-6 text-slate-800 dark:text-white">Server & OS</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Linux (Debian/Ubuntu)</span>
+                                <span class="text-sm font-medium text-blue-500 dark:text-blue-400">70%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full skill-bar-fill" style="--target-width: 70%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Windows 10/11</span>
+                                <span class="text-sm font-medium text-blue-500 dark:text-blue-400">90%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full skill-bar-fill" style="--target-width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Dasar Web Server</span>
+                                <span class="text-sm font-medium text-blue-500 dark:text-blue-400">65%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full skill-bar-fill" style="--target-width: 65%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Category 3 -->
+                <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-lg transition-all duration-300 reveal reveal-up delay-300">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-cyan-100 dark:bg-cyan-900/30 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-screwdriver-wrench text-xl md:text-2xl text-cyan-500 dark:text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-bold mb-6 text-slate-800 dark:text-white">Hardware & Cabling</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Perakitan PC</span>
+                                <span class="text-sm font-medium text-cyan-500 dark:text-cyan-400">95%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-cyan-500 h-2 rounded-full skill-bar-fill" style="--target-width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Troubleshooting Hardware</span>
+                                <span class="text-sm font-medium text-cyan-500 dark:text-cyan-400">85%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-cyan-500 h-2 rounded-full skill-bar-fill" style="--target-width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-slate-700 dark:text-slate-300">UTP Crimping (Straight/Cross)</span>
+                                <span class="text-sm font-medium text-cyan-500 dark:text-cyan-400">95%</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2">
+                                <div class="bg-cyan-500 h-2 rounded-full skill-bar-fill" style="--target-width: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. My Project -->
+    <section id="projects" class="py-24 bg-white dark:bg-slate-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">Proyek <span class="text-brand">Praktikum</span></h2>
+                <div class="w-20 h-1.5 bg-brand mx-auto rounded-full"></div>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 text-sm md:text-base">Implementasi nyata dari tugas dan praktikum di sekolah</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Project 1 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 reveal reveal-up delay-100">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="gallery/project1.png" alt="Cisco Packet Tracer" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-white text-sm font-medium bg-brand px-3 py-1 rounded-full"><i class="fa-solid fa-diagram-project mr-1"></i> Simulasi</span>
+                        </div>
+                    </div>
+                    <div class="p-5 md:p-6">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-slate-800 dark:text-white">Simulasi Jaringan VLAN</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm mb-4 line-clamp-2">Perancangan dan simulasi topologi jaringan VLAN antar gedung sekolah menggunakan software Cisco Packet Tracer.</p>
+                        <div class="flex gap-2 text-[10px] md:text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            <span class="bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">Cisco</span>
+                            <span class="bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">VLAN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 reveal reveal-up delay-200">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="gallery/project2.png" alt="Router Topology" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-white text-sm font-medium bg-brand px-3 py-1 rounded-full"><i class="fa-solid fa-wifi mr-1"></i> Praktik Lab</span>
+                        </div>
+                    </div>
+                    <div class="p-5 md:p-6">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-slate-800 dark:text-white">Konfigurasi Hotspot MikroTik</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm mb-4 line-clamp-2">Praktik membuat sistem login hotspot dan pembatasan limitasi bandwidth user menggunakan routerboard MikroTik.</p>
+                        <div class="flex gap-2 text-[10px] md:text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            <span class="bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">MikroTik</span>
+                            <span class="bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">Hotspot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 reveal reveal-up delay-300">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="gallery/project3.png" alt="PC Assembling" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-white text-sm font-medium bg-brand px-3 py-1 rounded-full"><i class="fa-solid fa-desktop mr-1"></i> Hardware</span>
+                        </div>
+                    </div>
+                    <div class="p-5 md:p-6">
+                        <h3 class="text-lg md:text-xl font-bold mb-2 text-slate-800 dark:text-white">Perakitan PC & Instalasi OS</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs md:text-sm mb-4 line-clamp-2">Tugas praktik membongkar, merakit ulang hardware komputer, serta melakukan instalasi dual-boot Windows dan Linux.</p>
+                        <div class="flex gap-2 text-[10px] md:text-xs font-semibold text-slate-500 dark:text-slate-400">
+                            <span class="bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">Hardware</span>
+                            <span class="bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded">Instalasi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. My Gallery -->
+    <section id="gallery" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand opacity-20 blur-[120px] rounded-full hidden md:block"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500 opacity-20 blur-[120px] rounded-full hidden md:block"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Galeri <span class="text-brand-accent">Aktivitas</span></h2>
+                <div class="w-20 h-1.5 bg-brand-accent mx-auto rounded-full"></div>
+                <p class="mt-4 text-slate-400 text-sm md:text-base">Dokumentasi kegiatan belajar dan praktik lab jurusan TKJ</p>
+            </div>
+
+            <!-- Masonry Grid Layout Cerdas (Responsive & Rapi) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[220px] md:auto-rows-[250px] grid-flow-row-dense">
+                
+                <!-- Gambar 1 (Portrait di Kiri) -->
+                <div class="md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2 rounded-2xl overflow-hidden group relative cursor-pointer border border-slate-800 shadow-lg reveal reveal-scale">
+                    <img src="gallery/gallery1.png" alt="Server Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5 md:p-6">
+                        <h4 class="text-white font-bold text-lg md:text-xl transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out">Praktik Server</h4>
+                        <p class="text-slate-300 text-xs md:text-sm mb-3 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">Setup rack & manajemen kabel server</p>
+                        <div class="flex items-center text-brand-accent font-medium text-xs md:text-sm transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-150 ease-out">
+                            <i class="fa-solid fa-eye mr-2"></i> Click to view
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gambar 2 (Landscape Lebar di Atas Tengah) -->
+                <div class="md:col-span-1 md:row-span-1 lg:col-span-2 lg:row-span-1 rounded-2xl overflow-hidden group relative cursor-pointer border border-slate-800 shadow-lg reveal reveal-scale delay-100">
+                    <img src="gallery/gallery2.png" alt="Topologi Global" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5 md:p-6">
+                        <h4 class="text-white font-bold text-lg md:text-xl transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out">Desain Topologi</h4>
+                        <p class="text-slate-300 text-xs md:text-sm mb-3 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">Pemetaan infrastruktur jaringan sekolah</p>
+                        <div class="flex items-center text-brand-accent font-medium text-xs md:text-sm transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-150 ease-out">
+                            <i class="fa-solid fa-eye mr-2"></i> Click to view
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gambar 3 (Kotak Standar Kanan Atas) -->
+                <div class="md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1 rounded-2xl overflow-hidden group relative cursor-pointer border border-slate-800 shadow-lg reveal reveal-scale delay-200">
+                    <img src="gallery/gallery3.png" alt="Cables" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+                        <h4 class="text-white font-bold text-base md:text-lg transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out">Kabel UTP</h4>
+                        <p class="text-slate-300 text-[10px] md:text-xs mb-2 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">Crimping & Urutan Warna</p>
+                        <div class="flex items-center text-brand-accent font-medium text-xs transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-150 ease-out">
+                            <i class="fa-solid fa-eye mr-1"></i> Click to view
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gambar 4 (Kotak Besar di Tengah) -->
+                <div class="md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2 rounded-2xl overflow-hidden group relative cursor-pointer border border-slate-800 shadow-lg reveal reveal-scale">
+                    <img src="gallery/gallery4.png" alt="Lab Teams" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/50 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6 md:p-8">
+                        <h4 class="text-white font-bold text-xl md:text-2xl transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out">Praktik Lab Bersama</h4>
+                        <p class="text-slate-300 text-xs md:text-base mb-4 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">Bekerja sama di tim untuk merakit puluhan PC client dan instalasi sistem operasi.</p>
+                        <div class="flex items-center text-brand-accent font-bold text-xs md:text-sm transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-150 ease-out">
+                            <i class="fa-solid fa-eye mr-2"></i> Click to view
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gambar 5 (Kotak Standar Kanan Tengah) -->
+                <div class="md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1 rounded-2xl overflow-hidden group relative cursor-pointer border border-slate-800 shadow-lg reveal reveal-scale delay-100">
+                    <img src="gallery/gallery5.png" alt="Server Tech" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+                        <h4 class="text-white font-bold text-base md:text-lg transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out">Keamanan</h4>
+                        <p class="text-slate-300 text-[10px] md:text-xs mb-2 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">Konfigurasi Firewall</p>
+                        <div class="flex items-center text-brand-accent font-medium text-xs transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-150 ease-out">
+                            <i class="fa-solid fa-eye mr-1"></i> Click to view
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gambar 6 (Kotak Standar Kiri Bawah) -->
+                <div class="md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1 rounded-2xl overflow-hidden group relative cursor-pointer border border-slate-800 shadow-lg reveal reveal-scale delay-200">
+                    <img src="gallery/gallery6.png" alt="Hardware" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+                        <h4 class="text-white font-bold text-base md:text-lg transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 ease-out">Hardware PC</h4>
+                        <p class="text-slate-300 text-[10px] md:text-xs mb-2 transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-75 ease-out">Pemeriksaan Motherboard</p>
+                        <div class="flex items-center text-brand-accent font-medium text-xs transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-all duration-500 delay-150 ease-out">
+                            <i class="fa-solid fa-eye mr-1"></i> Click to view
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 7: MORE ON IG (Kotak Kanan Bawah) -->
+                <a href="https://instagram.com/m.faizal" target="_blank" class="md:col-span-1 md:row-span-1 lg:col-span-1 lg:row-span-1 rounded-2xl bg-slate-800/80 border border-slate-700 hover:bg-slate-700 hover:border-brand hover:-translate-y-2 hover:shadow-xl hover:shadow-brand/20 transition-all duration-300 flex flex-col justify-center p-6 group cursor-pointer reveal reveal-scale delay-300">
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-white leading-none mb-1 tracking-tight">MORE</h3>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-white leading-none mb-4 flex items-center gap-2 tracking-tight">ON <i class="fa-brands fa-instagram"></i></h3>
+                    <span class="text-slate-400 group-hover:text-brand-accent transition-colors font-medium text-sm md:text-base">@m.faizal_tkj</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Education / Riwayat Pendidikan -->
+    <section id="pendidikan" class="py-24 bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">Riwayat <span class="text-brand">Pendidikan</span></h2>
+                <div class="w-20 h-1.5 bg-brand mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Mobile Layout Setup: Garis di kiri. Desktop Layout Setup: Garis di tengah. -->
+            <div class="relative timeline-container py-4">
+                
+                <!-- Timeline Item 1 (SMK) -->
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-12 timeline-item cursor-default reveal reveal-up delay-100">
+                    <!-- Dot Marker -->
+                    <div class="timeline-dot absolute left-[16px] md:left-1/2 w-7 h-7 md:w-8 md:h-8 rounded-full border-4 mt-1.5 md:mt-0 z-10"></div>
+                    
+                    <!-- Content Kiri (HP: Tampil di atas, rata kiri) -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 text-left md:text-right mb-2 md:mb-0 timeline-content origin-left md:origin-right">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">Sekolah Menengah Kejuruan (SMK)</h3>
+                        <p class="text-brand dark:text-brand-accent text-sm md:text-base font-medium">Jurusan Teknik Komputer dan Jaringan</p>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">2024 - 2027</p>
+                    </div>
+                    
+                    <!-- Content Kanan (HP: Tampil di bawah, rata kiri) -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-12 text-left timeline-content origin-left">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base">Saat ini saya berada di kelas 11 (Tahun Ajaran 2025-2026). Di sini saya mendalami ilmu tentang jaringan komputer, administrasi server, perakitan PC, dan infrastruktur IT secara praktikal.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 (SMP) -->
+                <div class="relative flex flex-col md:flex-row items-start md:items-center mb-12 timeline-item cursor-default reveal reveal-up delay-200">
+                    <!-- Dot Marker -->
+                    <div class="timeline-dot absolute left-[16px] md:left-1/2 w-7 h-7 md:w-8 md:h-8 rounded-full border-4 mt-1.5 md:mt-0 z-10 md:order-2"></div>
+                    
+                    <!-- Content Kiri (HP: Tampil di atas, rata kiri | Desktop: Order 2 di kanan) -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-12 text-left mb-2 md:mb-0 timeline-content origin-left order-1 md:order-3">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">Sekolah Menengah Pertama (SMP)</h3>
+                        <p class="text-cyan-600 dark:text-cyan-400 text-sm md:text-base font-medium">Pendidikan Menengah Pertama</p>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">2021 - 2024</p>
+                    </div>
+                    
+                    <!-- Content Kanan (HP: Tampil di bawah, rata kiri | Desktop: Order 1 di kiri, rata kanan) -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 text-left md:text-right timeline-content origin-left md:origin-right order-2 md:order-1">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base">Menyelesaikan pendidikan menengah pertama dengan baik dan mulai menumbuhkan ketertarikan yang besar terhadap dunia teknologi dan ilmu komputer.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 (SD) -->
+                <div class="relative flex flex-col md:flex-row items-start md:items-center timeline-item cursor-default reveal reveal-up delay-300">
+                    <!-- Dot Marker -->
+                    <div class="timeline-dot absolute left-[16px] md:left-1/2 w-7 h-7 md:w-8 md:h-8 rounded-full border-4 mt-1.5 md:mt-0 z-10"></div>
+                    
+                    <!-- Content Kiri (HP: Tampil di atas, rata kiri) -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-0 md:pr-12 text-left md:text-right mb-2 md:mb-0 timeline-content origin-left md:origin-right">
+                        <h3 class="text-lg md:text-xl font-bold text-slate-800 dark:text-white">Sekolah Dasar (SD)</h3>
+                        <p class="text-brand dark:text-brand-accent text-sm md:text-base font-medium">Pendidikan Dasar</p>
+                        <p class="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">2015 - 2021</p>
+                    </div>
+                    
+                    <!-- Content Kanan (HP: Tampil di bawah, rata kiri) -->
+                    <div class="w-full md:w-1/2 pl-12 md:pl-12 text-left timeline-content origin-left">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm md:text-base">Menempuh pendidikan dasar selama 6 tahun, membangun fondasi akademik yang kuat, serta kedisiplinan dan pembentukan karakter awal.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Contact -->
+    <section id="contact" class="py-24 bg-slate-50 dark:bg-slate-800/50 relative transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden border border-slate-100 dark:border-slate-700 flex flex-col lg:flex-row">
+                
+                <!-- Contact Info -->
+                <div class="lg:w-2/5 bg-gradient-to-br from-brand to-brand-dark p-8 md:p-10 text-white relative overflow-hidden reveal reveal-right">
+                    <!-- Decor -->
+                    <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-white opacity-10 rounded-full blur-[20px]"></div>
+                    <div class="absolute top-10 -left-10 w-32 h-32 bg-brand-accent opacity-20 rounded-full blur-[20px]"></div>
+
+                    <div class="relative z-10">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-2">Mari Terhubung!</h3>
+                        <p class="text-brand-light mb-8 md:mb-10 text-sm md:text-base">Punya proyek jaringan atau butuh konsultasi IT? Jangan ragu untuk menghubungi saya.</p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone text-lg md:text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-xs md:text-sm text-brand-light">Telepon / WhatsApp</p>
+                                    <p class="font-medium text-base md:text-lg">+62 812 3456 7890</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-envelope text-lg md:text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-xs md:text-sm text-brand-light">Email</p>
+                                    <p class="font-medium text-base md:text-lg">halo@mfaizal.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-location-dot text-lg md:text-xl"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-xs md:text-sm text-brand-light">Lokasi</p>
+                                    <p class="font-medium text-base md:text-lg">Jakarta, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="mt-10 md:mt-12 flex gap-4">
+                            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-white hover:text-brand rounded-full flex items-center justify-center transition-all">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-white hover:text-brand rounded-full flex items-center justify-center transition-all">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-white/10 hover:bg-white hover:text-brand rounded-full flex items-center justify-center transition-all">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:w-3/5 p-8 md:p-10 reveal reveal-left delay-200">
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-800 dark:text-white mb-6">Kirim Pesan</h3>
+                    <form class="space-y-4 md:space-y-6" onsubmit="event.preventDefault(); alert('Pesan berhasil dikirim! (Ini hanya demo)');">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1 md:mb-2">Nama Lengkap</label>
+                                <input type="text" required class="w-full px-4 py-2 md:py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white transition-all text-sm md:text-base">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1 md:mb-2">Email</label>
+                                <input type="email" required class="w-full px-4 py-2 md:py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white transition-all text-sm md:text-base">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1 md:mb-2">Subjek Proyek</label>
+                            <input type="text" class="w-full px-4 py-2 md:py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white transition-all text-sm md:text-base">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1 md:mb-2">Pesan / Detail Kebutuhan</label>
+                            <textarea rows="4" required class="w-full px-4 py-2 md:py-3 rounded-xl border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white transition-all resize-none text-sm md:text-base"></textarea>
+                        </div>
+                        <button type="submit" class="bg-brand hover:bg-brand-dark text-white px-8 py-3 rounded-full font-semibold transition-all shadow-lg shadow-brand/30 w-full md:w-auto text-sm md:text-base">
+                            Kirim Pesan <i class="fa-solid fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Music Player Widget -->
+    <div id="music-widget" class="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[100] flex flex-col-reverse items-start gap-3 md:gap-4">
+        <!-- Toggle Button -->
+        <button id="music-toggle" class="w-12 h-12 md:w-14 md:h-14 bg-[#0a0f1a] rounded-full flex items-center justify-center text-white shadow-xl border border-slate-700 hover:scale-110 hover:border-brand transition-all duration-300 group overflow-hidden relative">
+            
+            <!-- Default Music Icon -->
+            <i id="music-icon-default" class="fa-solid fa-music text-lg md:text-xl group-hover:text-brand-accent transition-all duration-500 transform scale-100 opacity-100 absolute"></i>
+
+            <!-- Mini Vinyl Player (Hidden by default) -->
+            <div id="mini-vinyl" class="w-full h-full absolute inset-0 flex items-center justify-center transition-all duration-500 transform scale-0 opacity-0">
+                <img id="mini-vinyl-cover" src="https://placehold.co/100/1e293b/22d3ee?text=Cover" alt="Cover" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                <!-- Vinyl grooves -->
+                <div class="absolute inset-0 rounded-full border border-black/30 m-1"></div>
+                <div class="absolute inset-0 rounded-full border border-black/30 m-2.5"></div>
+                <!-- Center hole -->
+                <div class="relative w-3 h-3 md:w-4 md:h-4 bg-[#0a0f1a] rounded-full border border-slate-700 z-10 flex items-center justify-center shadow-inner">
+                    <i class="fa-solid fa-music text-[5px] md:text-[6px] text-brand-accent"></i>
+                </div>
+            </div>
+        </button>
+
+        <!-- Player Panel -->
+        <div id="music-panel" class="hidden w-[260px] md:w-72 bg-[#0a0f1a]/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-[0_10px_40px_rgba(14,165,233,0.15)] overflow-hidden transition-all duration-300 origin-bottom-left transform scale-90 opacity-0">
+            <!-- Now Playing Info -->
+            <div class="p-3 md:p-4 flex items-center gap-3 md:gap-4">
+                <div class="relative w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden border-2 border-brand-accent/50 shadow-[0_0_10px_rgba(34,211,238,0.3)]">
+                    <img id="music-cover" src="https://placehold.co/100/1e293b/22d3ee?text=Cover" alt="Cover" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-2.5 h-2.5 md:w-3 md:h-3 bg-[#0a0f1a] rounded-full border border-slate-700"></div>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <h4 id="music-title" class="text-white text-xs md:text-sm font-bold truncate">Memuat...</h4>
+                    <p id="music-artist" class="text-brand-accent text-[10px] md:text-xs truncate font-medium">Memuat...</p>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="px-4 pb-1">
+                <div id="progress-container" class="relative w-full h-1 bg-slate-800 rounded-full cursor-pointer group">
+                    <div id="progress-bar" class="absolute top-0 left-0 h-full bg-gradient-to-r from-brand to-brand-accent rounded-full w-0"></div>
+                    <div id="progress-thumb" class="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity" style="left: 0%; transform: translate(-50%, -50%);"></div>
+                </div>
+                <div class="flex justify-between mt-1 px-0.5">
+                    <span id="current-time" class="text-[8px] text-slate-500 font-medium">0:00</span>
+                    <span id="duration-time" class="text-[8px] text-slate-500 font-medium">0:00</span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-center gap-5 md:gap-6 pb-4 md:pb-5 pt-1">
+                <button id="prev-btn" class="text-slate-400 hover:text-white transition-colors transform hover:scale-110 text-sm md:text-base"><i class="fa-solid fa-backward-step"></i></button>
+                <button id="play-btn" class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-brand to-purple-600 text-white rounded-full flex items-center justify-center hover:scale-105 transition-all shadow-lg shadow-brand/30">
+                    <i id="play-icon" class="fa-solid fa-play ml-1 text-sm md:text-base"></i>
+                </button>
+                <button id="next-btn" class="text-slate-400 hover:text-white transition-colors transform hover:scale-110 text-sm md:text-base"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+
+            <!-- Playlist Section -->
+            <div class="border-t border-slate-800/80">
+                <button id="playlist-toggle" class="w-full py-2.5 md:py-3 text-[10px] md:text-xs text-slate-400 hover:text-white flex items-center justify-center gap-2 transition-colors bg-slate-900/30">
+                    <i class="fa-solid fa-list-ul"></i> Buka Playlist
+                </button>
+                <ul id="playlist-list" class="hidden max-h-32 md:max-h-36 overflow-y-auto bg-slate-900/80 p-2 space-y-1">
+                    <!-- List lagu dimuat lewat JS -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="hide fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[90] w-12 h-12 md:w-14 md:h-14 bg-brand hover:bg-brand-dark text-white rounded-full flex items-center justify-center shadow-lg shadow-brand/30 transition-all duration-300">
+        <i class="fa-solid fa-arrow-up text-lg md:text-xl"></i>
+    </button>
+    
+    <!-- Audio Element Tertanam -->
+    <audio id="audio-element"></audio>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 py-8 border-t border-slate-200 dark:border-slate-800 text-center transition-colors duration-300">
+        <p class="text-slate-500 dark:text-slate-400 text-sm">
+            &copy; 2026 M.Faizal Personal Branding
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Theme System ---
+        // Setup initial theme based on local storage or system pref
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        }
+
+        themeToggleDesktop.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+        // --- Mobile Menu Toggle ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        function closeMobileMenu() {
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        }
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
+
+        // --- Navbar blur effect & Back to Top visibility on scroll ---
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            // Auto close mobile menu & music panel on scroll
+            closeMobileMenu();
+            closeMusicPanel();
+
+            // Navbar effect
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-sm');
+                if (document.documentElement.classList.contains('dark')) {
+                    navbar.style.background = 'rgba(15, 23, 42, 0.9)'; // Slate-900 with opacity
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.9)';
+                }
+            } else {
+                navbar.classList.remove('shadow-sm');
+                if (document.documentElement.classList.contains('dark')) {
+                    navbar.style.background = 'rgba(15, 23, 42, 0.7)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.7)';
+                }
+            }
+
+            // Back to top visibility
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('hide');
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+                backToTopBtn.classList.add('hide');
+            }
+        });
+
+        // Smooth scroll to top when button clicked
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Close panels when clicking anywhere on screen
+        document.addEventListener('click', (e) => {
+            // Close mobile menu if clicking outside
+            if (!menu.contains(e.target) && !btn.contains(e.target)) {
+                closeMobileMenu();
+            }
+            // Close music panel if clicking outside
+            if (!musicPanel.contains(e.target) && !musicToggle.contains(e.target)) {
+                closeMusicPanel();
+            }
+        });
+
+        // Event listener to re-evaluate navbar background on theme toggle change
+        const observerForTheme = new MutationObserver(() => {
+             if (window.scrollY > 20) {
+                navbar.style.background = document.documentElement.classList.contains('dark') ? 'rgba(15, 23, 42, 0.9)' : 'rgba(255, 255, 255, 0.9)';
+            } else {
+                navbar.style.background = document.documentElement.classList.contains('dark') ? 'rgba(15, 23, 42, 0.7)' : 'rgba(255, 255, 255, 0.7)';
+            }
+        });
+        observerForTheme.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+
+        // --- Network Particle Canvas Animation ---
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        const connectionDistance = 150;
+        const particleCount = window.innerWidth < 768 ? 30 : 60; // Kurangi jumlah partikel di HP agar lebih ringan
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = document.getElementById('home').offsetHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#0ea5e9'; // Brand color
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        // Opacity based on distance
+                        const opacity = 1 - (distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(14, 165, 233, ${opacity * 0.3})`; 
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let particle of particles) {
+                particle.update();
+                particle.draw();
+            }
+            
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+        // Timeline Dot Scroll & Hover Animation (Sistem lebih cerdas)
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        let isHoveringTimeline = false;
+
+        function updateTimelineOnScroll() {
+            if (isHoveringTimeline) return; // Jangan ubah otomatis kalau user sedang hover
+            
+            let closestItem = null;
+            let minDistance = Infinity;
+            // Titik deteksi: sedikit di atas tengah layar agar terasa lebih natural
+            const triggerPoint = window.innerHeight * 0.45; 
+
+            timelineItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenterY = rect.top + rect.height / 2;
+                const distance = Math.abs(triggerPoint - itemCenterY);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestItem = item;
+                }
+            });
+
+            // Pastikan hanya item terdekat yang nyala
+            if (closestItem) {
+                timelineItems.forEach(item => item.classList.remove('glow-active'));
+                closestItem.classList.add('glow-active');
+            }
+        }
+
+        // Panggil saat scroll
+        window.addEventListener('scroll', updateTimelineOnScroll);
+        // Panggil sekali untuk inisialisasi awal saat web dimuat
+        updateTimelineOnScroll(); 
+
+        // Event listener khusus pointer/hover untuk override deteksi scroll
+        timelineItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                isHoveringTimeline = true;
+                timelineItems.forEach(t => t.classList.remove('glow-active'));
+                item.classList.add('glow-active'); // Nyalakan yang di-hover saja
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                isHoveringTimeline = false;
+                updateTimelineOnScroll(); // Kembalikan ke yang terdekat dari layar
+            });
+        });
+
+        // --- Typing Animation ---
+        const textToType = "M.Faizal Ramdhani";
+        const typingElement = document.querySelector('.typing-text');
+        let typingIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            if (!typingElement) return;
+            
+            const currentText = textToType.substring(0, typingIndex);
+            typingElement.textContent = currentText;
+
+            let typeSpeed = isDeleting ? 80 : 150; // Kecepatan hapus dan ketik
+
+            if (!isDeleting && typingIndex === textToType.length) {
+                // Berhenti sebentar setelah nama selesai diketik sebelum dihapus
+                typeSpeed = 2500;
+                isDeleting = true;
+            } else if (isDeleting && typingIndex === 0) {
+                isDeleting = false;
+                // Jeda sebentar sebelum mengetik ulang
+                typeSpeed = 500;
+            }
+
+            if (isDeleting) {
+                typingIndex--;
+            } else {
+                typingIndex++;
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        // Mulai animasi typing setelah halaman selesai dimuat (jeda 1 detik)
+        setTimeout(typeEffect, 1000);
+
+        // --- Music Player System ---
+        // Daftar lagu (Silakan ganti URL 'src' dengan link lagumu nanti)
+        const songs = [
+            {
+                title: "The Fate Of Ophelia",
+                artist: "Taylor Swift",
+                cover: "gallery/music_cover1.jpeg",
+                src: "music/song1.mp3"
+            },
+            {
+                title: "Skyfall",
+                artist: "Adele",
+                cover: "gallery/music_cover2.jpeg",
+                src: "music/song2.mp3"
+            },
+            {
+                title: "Kings & Queens",
+                artist: "Ava Max",
+                cover: "gallery/music_cover3.jpeg",
+                src: "music/song3.mp3"
+            }
+        ];
+
+        let songIndex = 0;
+        let isPlaying = false;
+
+        // Elements
+        const audio = document.getElementById('audio-element');
+        const playBtn = document.getElementById('play-btn');
+        const playIcon = document.getElementById('play-icon');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const titleEl = document.getElementById('music-title');
+        const artistEl = document.getElementById('music-artist');
+        const coverEl = document.getElementById('music-cover');
+        const miniVinylCover = document.getElementById('mini-vinyl-cover');
+        const miniVinyl = document.getElementById('mini-vinyl');
+        const musicIconDefault = document.getElementById('music-icon-default');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicPanel = document.getElementById('music-panel');
+        const playlistToggle = document.getElementById('playlist-toggle');
+        const playlistList = document.getElementById('playlist-list');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressThumb = document.getElementById('progress-thumb');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationTimeEl = document.getElementById('duration-time');
+
+        // Initialize Player
+        function loadSong(index) {
+            const song = songs[index];
+            titleEl.textContent = song.title;
+            artistEl.textContent = song.artist;
+            coverEl.src = song.cover;
+            miniVinylCover.src = song.cover;
+            audio.src = song.src;
+            
+            // Reset progress
+            progressBar.style.width = '0%';
+            progressThumb.style.left = '0%';
+            currentTimeEl.textContent = '0:00';
+            
+            updatePlaylistUI();
+        }
+
+        // Play/Pause
+        function playSong() {
+            isPlaying = true;
+            audio.play();
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+            playIcon.classList.remove('ml-1'); // Hapus margin agar ikon pause pas di tengah
+            coverEl.parentElement.classList.add('spin-active');
+            
+            // Animasi transisi Ikon -> Vinyl
+            musicIconDefault.classList.remove('scale-100', 'opacity-100');
+            musicIconDefault.classList.add('scale-0', 'opacity-0');
+            miniVinyl.classList.remove('scale-0', 'opacity-0');
+            miniVinyl.classList.add('scale-100', 'opacity-100', 'spin-active');
+        }
+
+        function pauseSong() {
+            isPlaying = false;
+            audio.pause();
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            playIcon.classList.add('ml-1');
+            coverEl.parentElement.classList.remove('spin-active');
+            
+            // Animasi transisi Vinyl -> Ikon
+            musicIconDefault.classList.remove('scale-0', 'opacity-0');
+            musicIconDefault.classList.add('scale-100', 'opacity-100');
+            miniVinyl.classList.remove('scale-100', 'opacity-100', 'spin-active');
+            miniVinyl.classList.add('scale-0', 'opacity-0');
+        }
+
+        playBtn.addEventListener('click', () => {
+            isPlaying ? pauseSong() : playSong();
+        });
+
+        // Next/Prev
+        function nextSong() {
+            songIndex = (songIndex + 1) % songs.length;
+            loadSong(songIndex);
+            if (isPlaying) playSong();
+        }
+
+        function prevSong() {
+            songIndex = (songIndex - 1 + songs.length) % songs.length;
+            loadSong(songIndex);
+            if (isPlaying) playSong();
+        }
+
+        nextBtn.addEventListener('click', nextSong);
+        prevBtn.addEventListener('click', prevSong);
+
+        // Auto next on song end
+        audio.addEventListener('ended', nextSong);
+
+        // Update Progress
+        function updateProgress(e) {
+            const { duration, currentTime } = e.srcElement;
+            if (isNaN(duration)) return;
+            
+            const progressPercent = (currentTime / duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            progressThumb.style.left = `${progressPercent}%`;
+            
+            // Update time
+            currentTimeEl.textContent = formatTime(currentTime);
+            durationTimeEl.textContent = formatTime(duration);
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('loadedmetadata', () => {
+            durationTimeEl.textContent = formatTime(audio.duration);
+        });
+
+        // Set Progress (Click/Seek)
+        function setProgress(e) {
+            const width = this.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            if (isNaN(duration)) return;
+            
+            audio.currentTime = (clickX / width) * duration;
+        }
+
+        progressContainer.addEventListener('click', setProgress);
+
+        // Support for dragging
+        let isDragging = false;
+        progressContainer.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mouseup', () => isDragging = false);
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const rect = progressContainer.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            x = Math.max(0, Math.min(x, rect.width));
+            const duration = audio.duration;
+            if (isNaN(duration)) return;
+            audio.currentTime = (x / rect.width) * duration;
+        });
+
+        // Render Playlist
+        function renderPlaylist() {
+            playlistList.innerHTML = '';
+            songs.forEach((song, i) => {
+                const li = document.createElement('li');
+                li.className = `flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-slate-800 transition-colors ${i === songIndex ? 'bg-slate-800 border-l-2 border-brand-accent' : ''}`;
+                li.innerHTML = `
+                    <img src="${song.cover}" class="w-8 h-8 rounded object-cover">
+                    <div class="flex-1 overflow-hidden">
+                        <p class="text-xs font-bold text-white truncate">${song.title}</p>
+                        <p class="text-[10px] text-slate-400 truncate">${song.artist}</p>
+                    </div>
+                    ${i === songIndex && isPlaying ? '<i class="fa-solid fa-volume-high text-brand-accent text-xs"></i>' : ''}
+                `;
+                li.addEventListener('click', () => {
+                    songIndex = i;
+                    loadSong(songIndex);
+                    playSong();
+                });
+                playlistList.appendChild(li);
+            });
+        }
+
+        function updatePlaylistUI() {
+            renderPlaylist(); // Re-render to update active states
+        }
+
+        // Toggles
+        function closeMusicPanel() {
+            if (!musicPanel.classList.contains('hidden')) {
+                musicPanel.classList.remove('scale-100', 'opacity-100');
+                musicPanel.classList.add('scale-90', 'opacity-0');
+                setTimeout(() => {
+                    musicPanel.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (musicPanel.classList.contains('hidden')) {
+                musicPanel.classList.remove('hidden');
+                setTimeout(() => {
+                    musicPanel.classList.remove('scale-90', 'opacity-0');
+                    musicPanel.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                closeMusicPanel();
+            }
+        });
+
+        playlistToggle.addEventListener('click', () => {
+            playlistList.classList.toggle('hidden');
+            const icon = playlistToggle.querySelector('i');
+            if(playlistList.classList.contains('hidden')){
+                playlistToggle.innerHTML = '<i class="fa-solid fa-list-ul"></i> Buka Playlist';
+            } else {
+                playlistToggle.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Tutup Playlist';
+            }
+        });
+
+        // Initialize first song
+        loadSong(songIndex);
+
+        // --- Global Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1, 
+            rootMargin: "0px 0px -50px 0px" 
+        });
+
+        revealElements.forEach(element => {
+            revealObserver.observe(element);
+        });
+
+    </script>
+</body>
+</html>
